@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script type="module" src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header">
+        <h1>weather.</h1>
+        <div id="inputFields">
+            <input id="input" type="text">
+            <button id="submitBtn">Click</button>
+        </div>
+    </div>
+
+    <main id="allInfo">
+        <div id="frozenEffect">
+
+            <div id="mainWeather">
+                <h2></h2>
+                <p>weather ${data.weather[0].main}</p>
+                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="ha">
+                <h2>Tempreture: ${Math.round(data.main.temp)}</h2>
+                <h3>Feels Like: ${Math.round(data.main.feels_like)}</h3>
+                <p>Min. temp.: ${Math.round(data.main.temp_min)}  Max. temp.: ${Math.round(data.main.temp_max)}</p>
+            </div>
+            <div id="days">
+                <h1>Weather Details</h1>
+                <p>Cloudy: ${data.clouds.all}%</p>
+                <p>Wind: ${data.wind.speed}</p>
+                <p>Humidity: ${data.main.humidity}%</p>
+            </div>
+
+        </div>
+
+    </main>
+    
+
+
+
+</body>
+</html>
