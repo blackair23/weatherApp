@@ -1,8 +1,11 @@
+document.getElementById('submitBtn').addEventListener('click', dataFetch);
+document.getElementById('submitBtn').addEventListener('click', fiveDaysForecast);
 
+startingData();
 
 async function dataFetch() {
     let city = document.getElementById('input').value;
-    document.getElementById('input').innerHTML = '';
+    // document.getElementById('input').value = '';
     let units = 'metric';
     let cityRes = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=ad3d6293ab4a5e965ae1ff713dc7618c`);
     let cityData = await cityRes.json();
@@ -34,14 +37,14 @@ async function dataFetch() {
             <p>Cloudy: ${data.clouds.all}%</p>
             <p>Wind: ${data.wind.speed}km/h</p>
             <p>Humidity: ${data.main.humidity}%</p>
+            <div id="container">
+
+            </div>
         </div>
         `
     
 
 }
-document.getElementById('submitBtn').addEventListener('click', dataFetch);
-document.onload(startingData());
-
 
 function spinner() {
     document.getElementById('frozenEffect').innerHTML = `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`
@@ -83,5 +86,48 @@ async function startingData() {
         </div>
         `
     
+
+}
+
+async function fiveDaysForecast() {
+    let city = document.getElementById('input').value;
+    document.getElementById('input').value = '';
+    let units = 'metric';
+    let cityRes = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=ad3d6293ab4a5e965ae1ff713dc7618c`);
+    let cityData = await cityRes.json();
+
+    let latitude = cityData[0].lat;
+    let lontitude = cityData[0].lon;
+    let country = cityData[0].country;
+    let cityName = cityData[0].name;
+
+    spinner();
+
+    let res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${lontitude}&appid=ad3d6293ab4a5e965ae1ff713dc7618c&units=metric`);
+    let data = await res.json();
+
+    // console.log('wather',data.list[0].weather[0].main);
+    // console.log('temp', data.list[0].main.temp);
+    // console.log('icon', data.list[0].weather[0].icon);
+    // console.log('min',data.list[0].main.temp_min, 'max', data.list[0].main.temp_max);
+
+    for (let i = 0; i < data.list.length; i++) {
+        if(i == 8 || i == 16 || i == 24 || i == 32 || i == 39){
+            let day = data.list[i].dt_txt;
+            let date = new Date(day);
+            let weekday = date.toLocaleDateString("en-US", { weekday: 'short' }); 
+            let div = document.createElement('div'); 
+            div.className = 'forcast';
+            div.innerHTML = `
+                <h4>${weekday}</h4>
+                <img id="smallImg"src="http://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png" alt="weather img">
+                <p><strong>${Math.round(data.list[i].main.temp)}&degC</strong></p>
+                `;
+            document.getElementById('container').appendChild(div);
+
+        }
+
+    }
+  
 
 }

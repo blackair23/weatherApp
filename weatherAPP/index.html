@@ -10,37 +10,19 @@
 </head>
 <body>
     <div id="header">
-        <h1>weather.</h1>
+        <h1><a class="logo" href="/">weather.</a></h1>
+        
         <div id="inputFields">
             <input id="input" type="text">
-            <button id="submitBtn">Click</button>
+            <button id="submitBtn">Show</button>
         </div>
     </div>
 
     <main id="allInfo">
         <div id="frozenEffect">
-
-            <div id="mainWeather">
-                <h2></h2>
-                <p>weather ${data.weather[0].main}</p>
-                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="ha">
-                <h2>Tempreture: ${Math.round(data.main.temp)}</h2>
-                <h3>Feels Like: ${Math.round(data.main.feels_like)}</h3>
-                <p>Min. temp.: ${Math.round(data.main.temp_min)}  Max. temp.: ${Math.round(data.main.temp_max)}</p>
-            </div>
-            <div id="days">
-                <h1>Weather Details</h1>
-                <p>Cloudy: ${data.clouds.all}%</p>
-                <p>Wind: ${data.wind.speed}</p>
-                <p>Humidity: ${data.main.humidity}%</p>
-            </div>
-
         </div>
 
     </main>
     
-
-
-
 </body>
 </html>
